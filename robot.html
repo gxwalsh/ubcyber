@@ -1,0 +1,83 @@
+<html>
+<head>
+<script>
+
+/////////////////////////////////////////////////////////////
+// This *function* uses AJAX. You do not need to touch it. //
+////////////////////////////////////////////////////////////
+
+
+function myDrive(str) {
+  var xhttp;
+  if (str.length == 0) {
+    document.getElementById("txtHint").innerHTML = "";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("txtHint").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "http://192.168.4.1/gpio/"+str, true); //this is the address of your bot ONCE you connect via wifi.
+  xhttp.send();
+}
+
+//END AJAX section
+
+
+///////////////////////////////////////////////
+// This set of commands checks the keyboard ///
+///////////////////////////////////////////////
+
+document.onkeydown = checkKey;
+
+/* In JavaScript, the keyCodes are:
+
+up arrow = 38
+down arrow = 40
+left arrow = 37
+right arrow = 39
+
+letter a = 65
+
+*/
+
+
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+        //up arrow
+        myDrive('f') //calls the function
+    }
+    else if (e.keyCode == '40') {
+        // down arrow
+    }
+    else if (e.keyCode == '37') {
+       // left arrow
+       myDrive('l')
+    }
+    else if (e.keyCode == '39') {
+       // right arrow
+       myDrive('r')
+    }
+
+}
+
+
+
+</script>
+</head>
+<body>
+
+ <button onclick="myDrive('f')">Forward</button> </p>
+
+
+
+
+</body>
+
+</html>
+
